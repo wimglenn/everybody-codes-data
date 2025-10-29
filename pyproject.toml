@@ -34,7 +34,7 @@ ecd = "ecd.cli:main"
 packages = ["ecd"]
 
 [tool.setuptools.package-data]
-aocd = ["py.typed"]
+ecd = ["py.typed"]
 
 [tool.pytest.ini_options]
 addopts = """

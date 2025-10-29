@@ -1,6 +1,6 @@
-[![pypi](https://img.shields.io/pypi/v/everybody-codes-data.svg)](https://pypi.org/project/advent-of-code-data/)
-[![actions](https://github.com/wimglenn/everybody-codes-data/actions/workflows/test.yml/badge.svg)](https://github.com/wimglenn/advent-of-code-data/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/wimglenn/everybody-codes-data/branch/main/graph/badge.svg)](https://app.codecov.io/gh/wimglenn/advent-of-code-data)
+[![pypi](https://img.shields.io/pypi/v/everybody-codes-data.svg)](https://pypi.org/project/everybody-codes-data/)
+[![actions](https://github.com/wimglenn/everybody-codes-data/actions/workflows/test.yml/badge.svg)](https://github.com/wimglenn/everybody-codes-data/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/wimglenn/everybody-codes-data/branch/main/graph/badge.svg)](https://app.codecov.io/gh/wimglenn/everybody-codes-data)
 ![womm](https://cdn.rawgit.com/nikku/works-on-my-machine/v0.2.0/badge.svg)
 
 
