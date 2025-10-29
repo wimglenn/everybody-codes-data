@@ -8,10 +8,10 @@ version = "0.1"
 description = "Retrieve and decrypt puzzle input data for everybody.codes events"
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Topic :: Software Development :: Libraries",
     "Topic :: Games/Entertainment :: Puzzle Games",
 ]
@@ -23,9 +23,6 @@ dependencies = [
 [[project.authors]]
 name = "Wim Jeantine-Glenn"
 email = "hey@wimglenn.com"
-
-[project.license]
-text = "MIT"
 
 [project.urls]
 Homepage = "https://github.com/wimglenn/everybody-codes-data"
@@ -47,4 +44,3 @@ addopts = """
   --cov-branch
   --cov=ecd --cov=tests
   --cov-report=html --cov-report=term-missing:skip-covered"""
-xfail_strict = true
