@@ -80,3 +80,11 @@ def test_get_quest_and_event_fail(mocker):
     fake_stack = [["bleh", "stuff"], ["a/b.py", "ecd"]]
     mocker.patch("traceback.extract_stack", return_value=fake_stack)
     assert _impl.get_quest_and_event() == (None, None)
+
+
+def test_get_http_with_proxy(monkeypatch, fake_token):
+    monkeypatch.delenv("http_proxy", raising=False)
+    monkeypatch.setenv("https_proxy", "https://test-proxy")
+    http = _impl.get_http()
+    assert http.proxy.host == "test-proxy"
+    assert "everybody-codes-data" in http.headers["User-Agent"]

@@ -40,8 +40,15 @@ def get_token():
 @cache
 def get_http():
     token = get_token()
-    headers = {"Cookie": f"everybody-codes={token}"}
-    http = urllib3.PoolManager(headers=headers)
+    headers = {
+        "User-Agent": user_agent,
+        "Cookie": f"everybody-codes={token}",
+    }
+    proxy_url = os.environ.get("http_proxy") or os.environ.get("https_proxy")
+    if proxy_url:
+        http = urllib3.ProxyManager(proxy_url, headers=headers)
+    else:
+        http = urllib3.PoolManager(headers=headers)
     return http
 
 
