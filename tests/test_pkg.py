@@ -50,10 +50,23 @@ def test_get_inputs_no_cache_for_partial_unlock(top, mocker, fake_seed):
     assert not cached.exists()
 
 
-def test_submit(fake_token, pook):
+def test_submit(fake_token, pook, capsys):
     url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
     pook.post(url).reply(200).json({"correct": True})
     resp = ecd.submit(quest=1, event=2, part=3, answer=4)
+    out, err = capsys.readouterr()
+    assert not err
+    assert '"correct": true' in out
+    assert resp.json() == {"correct": True}
+
+
+def test_submit_quiet(fake_token, pook, capsys):
+    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    pook.post(url).reply(200).json({"correct": True})
+    resp = ecd.submit(quest=1, event=2, part=3, answer=4, quiet=True)
+    out, err = capsys.readouterr()
+    assert not err
+    assert not out
     assert resp.json() == {"correct": True}
 
 

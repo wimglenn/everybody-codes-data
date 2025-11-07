@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "everybody-codes-data"
-version = "0.2"
+version = "0.3"
 description = "Retrieve and decrypt puzzle input data for everybody.codes events"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -32,9 +32,6 @@ ecd = "ecd.cli:main"
 
 [tool.setuptools]
 packages = ["ecd"]
-
-[tool.setuptools.package-data]
-ecd = ["py.typed"]
 
 [tool.pytest.ini_options]
 addopts = """
