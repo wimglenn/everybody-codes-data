@@ -40,7 +40,12 @@ def get_inputs(*, quest: int, event: int, seed: int | None = None) -> dict[str, 
 
 
 def submit(
-    *, quest: int, event: int, part: t.Literal[1, 2, 3], answer: int | str
+    *,
+    quest: int,
+    event: int,
+    part: t.Literal[1, 2, 3],
+    answer: int | str,
+    quiet: bool = False,
 ) -> BaseHTTPResponse:
     """Submit answer for the given quest/event. All arguments are keyword-only. Part
     should be 1, 2, or 3."""
@@ -50,10 +55,13 @@ def submit(
     resp = http.request("POST", url, json={"answer": answer})
     if resp.status == 200:
         data = resp.json()
+        pretty = json.dumps(data, indent=2)
         if data.get("correct"):
-            _log.info("CORRECT: %s", json.dumps(resp.json(), indent=2))
+            _log.info("CORRECT: %s", pretty)
         else:
-            _log.warning("INCORRECT: %s", json.dumps(resp.json(), indent=2))
+            _log.warning("INCORRECT: %s", pretty)
+        if not quiet:
+            print(f"Submitted {answer} to {url} and got:\n{pretty}")
     elif resp.status == 409:
         _log.info("HTTP %d - was the correct answer already submitted?", resp.status)
     elif resp.status == 423:  # locked

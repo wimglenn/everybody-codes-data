@@ -82,11 +82,13 @@ from ecd import submit
 submit(quest=1, event=2024, part=1, answer=1323)
 ```
 
+If you don't want the submission result printed to the terminal, pass `quiet=True`.
+
 The result of the submission will be logged (so you may want to [configure the logging framework](https://docs.python.org/3/howto/logging.html#configuring-logging) in your project), but if you want to see the result explicitly the return value here is just a [`urllib3.HTTPResponse`](https://urllib3.readthedocs.io/en/stable/reference/urllib3.response.html#response) instance.
 
 ``` python
 from ecd import submit
-result = submit(quest=1, event=2024, part=1, answer=1323)
+result = submit(quest=1, event=2024, part=1, answer=1323, quiet=True)
 print(result.status)
 print(result.json())
 ```
