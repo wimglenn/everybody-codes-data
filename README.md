@@ -18,7 +18,7 @@ pip install everybody-codes-data
 
 ## Auth
 
-Your auth token should be placed at `~/.config/ecd/token`.
+Your auth token should be placed at `~/.config/ecd/token` or defined in the `ECD_TOKEN` environment variable.
 Get the token from the browser cookie storage after signing in at https://everybody.codes/login.
 It looks like a [UUID4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)) hex digest, e.g. `1aa871d3-d271-4c6b-8178-7cf795bf995c`.
 In Chrome, when you're on [the website](https://everybody.codes/) press F12 and then click the "Application" tab, and look for the cookie named `everybody-codes`.
