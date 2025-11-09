@@ -82,9 +82,19 @@ def test_submit_409(fake_token, pook, caplog):
     url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
     pook.post(url).reply(409)
     with caplog.at_level(logging.INFO):
-        resp = ecd.submit(quest=1, event=2, part=3, answer=4)
+        resp = ecd.submit(quest=1, event=2, part=3, answer=4, quiet=True)
     assert resp.status == 409
     assert "was the correct answer already submitted?" in caplog.text
+
+
+def test_submit_409_extra(fake_token, pook, capsys):
+    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    pook.post(url).reply(409).body("foo")
+    resp = ecd.submit(quest=1, event=2, part=3, answer=4)
+    assert resp.status == 409
+    out, err = capsys.readouterr()
+    assert not err
+    assert "foo" in out
 
 
 def test_submit_423(fake_token, pook, caplog):
