@@ -32,9 +32,16 @@ class EcdError(Exception):
 
 @cache
 def get_token():
+    val = os.environ.get("ECD_TOKEN")
+    if val is not None:
+        return val
     path = top / "token"
-    result = path.read_text().split()[0]
-    return result
+    if path.exists():
+        return path.read_text().split()[0]
+    raise EcdError(
+        "Couldn't find everybody-codes auth token. Get the token from the browser "
+        "cookie storage after signing in at https://everybody.codes/login."
+    )
 
 
 @cache
