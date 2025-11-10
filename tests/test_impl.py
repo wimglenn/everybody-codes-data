@@ -7,6 +7,16 @@ def test_get_token(fake_token):
     assert _impl.get_token() == fake_token
 
 
+def test_get_token_env(monkeypatch):
+    monkeypatch.setenv("ECD_TOKEN", "foo")
+    assert _impl.get_token() == "foo"
+
+
+def test_get_token_fail():
+    with pytest.raises(_impl.EcdError, match="Couldn't find everybody-codes auth"):
+        _impl.get_token()
+
+
 def test_get_seed_cached(top, fake_seed):
     assert _impl.get_seed() == fake_seed
 
