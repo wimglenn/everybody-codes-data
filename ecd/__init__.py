@@ -58,12 +58,17 @@ def submit(
         pretty = json.dumps(data, indent=2)
         if data.get("correct"):
             _log.info("CORRECT: %s", pretty)
+            if not quiet:
+                print(f"Submitted {answer} to {url} and got:\n{pretty}")
         else:
             _log.warning("INCORRECT: %s", pretty)
-        if not quiet:
-            print(f"Submitted {answer} to {url} and got:\n{pretty}")
     elif resp.status == 409:
-        _log.info("HTTP %d - was the correct answer already submitted?", resp.status)
+        msg = f"HTTP {resp.status} - was the correct answer already submitted?"
+        if resp.data:
+            msg += "\n" + resp.data.decode(errors="replace")
+        _log.info(msg)
+        if not quiet:
+            print(f"Submitted {answer} to {url} and got", msg)
     elif resp.status == 423:  # locked
         _log.warning("HTTP %d - was a bad answer submitted too recently?", resp.status)
     else:
