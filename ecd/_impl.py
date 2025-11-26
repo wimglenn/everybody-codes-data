@@ -23,7 +23,7 @@ user_agent = f"github.com/wimglenn/everybody-codes-data v{v} by hey@wimglenn.com
 url_seed = "https://everybody.codes/api/user/me"
 url_keys = "https://everybody.codes/api/event/{event}/quest/{quest}"
 url_post = "https://everybody.codes/api/event/{event}/quest/{quest}/part/{part}/answer"
-url_data = "https://everybody-codes.b-cdn.net/assets/{event}/{quest}/input/{seed}.json"
+url_data = "https://everybody.codes/assets/{event}/{quest}/input/{seed}.json"
 
 
 class EcdError(Exception):
