@@ -60,14 +60,14 @@ def test_get_keys_content_fail(fake_token, pook):
 
 
 def test_get_encrypted_inputs(fake_token, fake_seed, pook):
-    url = "https://everybody-codes.b-cdn.net/assets/6/5/input/7.json"
+    url = "https://everybody.codes/assets/6/5/input/7.json"
     pook.get(url).reply(200).json({"x": "y"})
     result = _impl.get_encrypted_inputs(quest=5, event=6, seed=7)
     assert result == {"x": "y"}
 
 
 def test_get_encrypted_inputs_fail(fake_token, fake_seed, pook):
-    url = "https://everybody-codes.b-cdn.net/assets/6/5/input/7.json"
+    url = "https://everybody.codes/assets/6/5/input/7.json"
     pook.get(url).reply(400)
     with pytest.raises(_impl.EcdError(f"HTTP 400 from {url}")):
         _impl.get_encrypted_inputs(quest=5, event=6, seed=7)
