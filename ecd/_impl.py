@@ -20,9 +20,9 @@ top.mkdir(parents=True, exist_ok=True)
 v = version("everybody-codes-data")
 user_agent = f"github.com/wimglenn/everybody-codes-data v{v} by hey@wimglenn.com"
 
-url_seed = "https://everybody.codes/api/user/me"
-url_keys = "https://everybody.codes/api/event/{event}/quest/{quest}"
-url_post = "https://everybody.codes/api/event/{event}/quest/{quest}/part/{part}/answer"
+url_seed = "https://api.everybody.codes/user/me"
+url_keys = "https://api.everybody.codes/event/{event}/quest/{quest}"
+url_post = "https://api.everybody.codes/event/{event}/quest/{quest}/part/{part}/answer"
 url_data = "https://everybody.codes/assets/{event}/{quest}/input/{seed}.json"
 
 
