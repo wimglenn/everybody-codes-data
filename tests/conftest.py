@@ -20,7 +20,7 @@ def top(tmp_path, mocker):
 @pytest.fixture
 def fake_token(top):
     path = top / "token"
-    val = "1aa871d3-d271-4c6b-8178-7cf795bf995c"
+    val = "the-test-token"
     path.write_text(val)
     yield val
     path.unlink()
