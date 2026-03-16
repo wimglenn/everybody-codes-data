@@ -51,7 +51,7 @@ def test_get_inputs_no_cache_for_partial_unlock(top, mocker, fake_seed):
 
 
 def test_submit(fake_token, pook, capsys):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(200).json({"correct": True})
     resp = ecd.submit(quest=1, event=2, part=3, answer=4)
     out, err = capsys.readouterr()
@@ -61,7 +61,7 @@ def test_submit(fake_token, pook, capsys):
 
 
 def test_submit_quiet(fake_token, pook, capsys):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(200).json({"correct": True})
     resp = ecd.submit(quest=1, event=2, part=3, answer=4, quiet=True)
     out, err = capsys.readouterr()
@@ -71,7 +71,7 @@ def test_submit_quiet(fake_token, pook, capsys):
 
 
 def test_submit_incorrect(fake_token, pook, caplog):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(200).json({"correct": False})
     resp = ecd.submit(quest=1, event=2, part=3, answer=4)
     assert resp.json() == {"correct": False}
@@ -79,7 +79,7 @@ def test_submit_incorrect(fake_token, pook, caplog):
 
 
 def test_submit_409(fake_token, pook, caplog):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(409)
     with caplog.at_level(logging.INFO):
         resp = ecd.submit(quest=1, event=2, part=3, answer=4, quiet=True)
@@ -88,7 +88,7 @@ def test_submit_409(fake_token, pook, caplog):
 
 
 def test_submit_409_extra(fake_token, pook, capsys):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(409).body("foo")
     resp = ecd.submit(quest=1, event=2, part=3, answer=4)
     assert resp.status == 409
@@ -98,7 +98,7 @@ def test_submit_409_extra(fake_token, pook, capsys):
 
 
 def test_submit_423(fake_token, pook, caplog):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(423)
     resp = ecd.submit(quest=1, event=2, part=3, answer=4)
     assert resp.status == 423
@@ -106,7 +106,7 @@ def test_submit_423(fake_token, pook, caplog):
 
 
 def test_submit_fail(fake_token, pook, caplog):
-    url = "https://everybody.codes/api/event/2/quest/1/part/3/answer"
+    url = "https://api.everybody.codes/event/2/quest/1/part/3/answer"
     pook.post(url).reply(400).body("uh-oh")
     resp = ecd.submit(quest=1, event=2, part=3, answer=4)
     assert resp.status == 400

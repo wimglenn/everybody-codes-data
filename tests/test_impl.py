@@ -24,28 +24,28 @@ def test_get_seed_cached(top, fake_seed):
 def test_get_seed_uncached(top, fake_token, pook):
     seed_path = top / "seed"
     assert not seed_path.exists()
-    pook.get("https://everybody.codes/api/user/me").reply(200).json({"seed": 13})
+    pook.get("https://api.everybody.codes/user/me").reply(200).json({"seed": 13})
     assert _impl.get_seed() == 13
     assert seed_path.read_text() == "13"
     seed_path.unlink()
 
 
 def test_get_seed_fail(top, fake_token, pook):
-    pook.get("https://everybody.codes/api/user/me").reply(400)
-    err = _impl.EcdError("HTTP 400 from https://everybody.codes/api/user/me")
+    pook.get("https://api.everybody.codes/user/me").reply(400)
+    err = _impl.EcdError("HTTP 400 from https://api.everybody.codes/user/me")
     with pytest.raises(err):
         _impl.get_seed()
 
 
 def test_get_keys(fake_token, pook):
-    url = "https://everybody.codes/api/event/2024/quest/1"
+    url = "https://api.everybody.codes/event/2024/quest/1"
     pook.get(url).reply(200).json({"key1": "k"})
     result = _impl.get_keys(1, 2024)
     assert result == {"key1": "k"}
 
 
 def test_get_keys_http_fail(fake_token, pook):
-    url = "https://everybody.codes/api/event/2024/quest/1"
+    url = "https://api.everybody.codes/event/2024/quest/1"
     pook.get(url).reply(400)
     err = _impl.EcdError(f"HTTP 400 from {url}")
     with pytest.raises(err):
@@ -53,7 +53,7 @@ def test_get_keys_http_fail(fake_token, pook):
 
 
 def test_get_keys_content_fail(fake_token, pook):
-    url = "https://everybody.codes/api/event/2024/quest/1"
+    url = "https://api.everybody.codes/event/2024/quest/1"
     pook.get(url).reply(200).json({"k": "v"})
     with pytest.raises(_impl.EcdError("failed to get keys")):
         _impl.get_keys(1, 2024)
