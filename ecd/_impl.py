@@ -39,8 +39,8 @@ def get_token():
     if path.exists():
         return path.read_text().split()[0]
     raise EcdError(
-        "Couldn't find everybody-codes auth token. Get the token from the browser "
-        "cookie storage after signing in at https://everybody.codes/login."
+        "Couldn't find everybody-codes auth token. Get the token from the Session "
+        "Cookie section on your profile at https://everybody.codes/profile."
     )
 
 
