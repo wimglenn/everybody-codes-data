@@ -1,7 +1,36 @@
 import json
 import logging
+import os
+
+import pytest
 
 import ecd
+
+
+def test_set_token(top):
+    token_path = ecd.set_token("  first-token  ")
+    assert token_path == top / "token"
+    assert token_path.read_text() == "first-token\n"
+    assert ecd._impl.get_token() == "first-token"
+
+    ecd._impl.get_http()
+    ecd.set_token("second-token")
+    assert ecd._impl.get_token() == "second-token"
+    assert ecd._impl.get_http().headers["Cookie"] == "everybody-codes=second-token"
+    if os.name != "nt":
+        assert token_path.stat().st_mode & 0o777 == 0o600
+
+
+def test_set_token_rejects_empty(top):
+    with pytest.raises(ValueError, match="cannot be empty"):
+        ecd.set_token("  \n  ")
+    assert not (top / "token").exists()
+
+
+def test_set_token_env_takes_precedence(top, monkeypatch):
+    monkeypatch.setenv("ECD_TOKEN", "environment-token")
+    ecd.set_token("file-token")
+    assert ecd._impl.get_token() == "environment-token"
 
 
 def test_getattr(mocker):

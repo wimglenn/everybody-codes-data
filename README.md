@@ -21,6 +21,10 @@ pip install everybody-codes-data
 Your auth token should be placed at `~/.config/ecd/token` or defined in the `ECD_TOKEN` environment variable.
 Get the token from the "Session Cookie" section on [your profile](https://everybody.codes/profile).
 
+Applications can store the token with `ecd.set_token(token)`. It creates the config
+directory if needed, replaces any stored token, and returns the token file path.
+`ECD_TOKEN` still takes precedence over the stored token.
+
 
 ## Usage
 

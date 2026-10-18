@@ -1,7 +1,9 @@
 import json
 import logging
+import os
 import sys
 import typing as t
+from pathlib import Path
 
 from urllib3 import BaseHTTPResponse
 
@@ -10,6 +12,21 @@ from . import cli
 
 
 _log = logging.getLogger(__name__)
+
+
+def set_token(token: str) -> Path:
+    """Store the auth token in the standard config file."""
+    token = token.strip()
+    if not token:
+        raise ValueError("Auth token cannot be empty")
+    path = _impl.top / "token"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(f"{token}\n")
+    if os.name != "nt":
+        path.chmod(0o600)
+    _impl.get_token.cache_clear()
+    _impl.get_http.cache_clear()
+    return path
 
 
 def get_inputs(*, quest: int, event: int, seed: int | None = None) -> dict[str, str]:
